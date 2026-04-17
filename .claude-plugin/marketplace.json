@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/marketplace.json",
+  "name": "leyline-marketplace",
+  "owner": {
+    "name": "Leyline contributors",
+    "url": "https://github.com/forsonny/leyline"
+  },
+  "description": "Marketplace self-hosting the Leyline developer-session workflow plugin. Add with `/plugin marketplace add forsonny/leyline` then install with `/plugin install leyline@leyline-marketplace`.",
+  "plugins": [
+    {
+      "name": "leyline",
+      "source": "./",
+      "description": "Opinionated developer-session workflow. Encodes one coherent session from first message to merged branch as a deterministic pipeline of skills that hand off to each other in a fixed order. 21 skills, 2 subagents, session-start hook, iron-law enforcement for TDD / systematic-debugging / verification / design-driven-development / accessibility-verification."
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+/*
+ * Graphviz DOT conventions for Leyline in-skill diagrams.
+ *
+ * This file is a reference, not a rendered graph. Copy the shape conventions
+ * below into new skill diagrams; the consistency makes diagrams scannable
+ * across the whole plugin.
+ *
+ * Format: in-skill diagrams use `dot` fences in Markdown. They render as text
+ * in most viewers; paste into a graphviz-capable renderer (graphviz.org, a
+ * VS Code extension, `dot -Tsvg`) for the visual.
+ */
+
+/* Shape conventions */
+
+digraph shape_conventions {
+    /* Entry and exit points: doublecircle */
+    Start [shape=doublecircle, label="Entry point - 'X begins'"];
+    End [shape=doublecircle, label="Exit point - 'X complete'"];
+
+    /* Actions or steps: box */
+    Action1 [shape=box, label="Numbered action; one verb phrase"];
+    Action2 [shape=box, label="Another action"];
+
+    /* Decisions: diamond */
+    Decision [shape=diamond, label="Condition phrased as a question?"];
+
+    /* Edges */
+    Start -> Action1 [label="always"];
+    Action1 -> Decision;
+    Decision -> Action2 [label="yes"];
+    Decision -> End [label="no"];
+    Action2 -> End;
+}
+
+/* Label conventions */
+
+digraph label_conventions {
+    A [shape=diamond, label="Diamond question ends in '?'"];
+    B [shape=box, label="Box action starts with verb"];
+    A -> B [label="edge labels name the condition"];
+    B -> A [label="loop edges are explicit"];
+}
+
+/* Flow conventions */
+
+digraph flow_conventions {
+    /* Linear flows: left-to-right or top-to-bottom */
+    Step1 [shape=box];
+    Step2 [shape=box];
+    Step3 [shape=box];
+    Step1 -> Step2 -> Step3;
+
+    /* Revise loops: visible arrow back to an earlier node */
+    Review [shape=diamond];
+    Fix [shape=box, label="Fix"];
+    Step3 -> Review;
+    Review -> Fix [label="no, revise"];
+    Fix -> Step2 [label="re-enter"];
+    Review -> Step1 [label="yes, advance", style=invis]; /* placeholder; do not render invis in real skills */
+}
+
+/*
+ * Rules:
+ *
+ * 1. One diagram per semantic unit. A giant diagram that tries to express the
+ *    whole skill's logic is harder to read than three focused diagrams.
+ *
+ * 2. Every diamond has labeled edges. An unlabeled diamond edge is a silent
+ *    decision; the reader cannot tell which condition took them down the path.
+ *
+ * 3. Revise / loop-back edges are explicit. Hard-gate diagrams in particular
+ *    must show what happens on failure, not just what happens on success.
+ *
+ * 4. Entry and exit are doublecircles. If a diagram has multiple entries,
+ *    that is a signal to split it; one diagram per invocation path.
+ *
+ * 5. Action boxes contain verb phrases, not noun phrases. "Write failing test"
+ *    is a box label; "Failing test" is not.
+ *
+ * 6. Decision diamonds are yes/no or a small closed-set of outcomes. If a
+ *    diamond needs seven outgoing edges, refactor into multiple diamonds.
+ *
+ * 7. Edge labels are the condition, not the action. "yes" / "no" /
+ *    "approved" / "revise" are edge labels. The action is the destination
+ *    box's label, not the edge.
+ *
+ * 8. No invisible edges (style=invis) in shipped skills. They exist in this
+ *    reference to illustrate spacing hints, not as a real pattern.
+ */

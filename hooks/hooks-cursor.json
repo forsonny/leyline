@@ -1,0 +1,17 @@
+{
+  "_comment": "UNVERIFIED. Cursor's hook env variable name (CURSOR_PLUGIN_ROOT) and event matcher tokens (startup|clear|compact) have not been confirmed against current Cursor docs. If Cursor's hook silently fails to inject the entry skill, check Cursor's release notes for the actual variable name and matcher and update this file. See docs/windows/launcher-notes.md and dev/reference/harness-matrix.md.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CURSOR_PLUGIN_ROOT}/hooks/run-hook.cmd\" session-start",
+            "async": false
+          }
+        ]
+      }
+    ]
+  }
+}

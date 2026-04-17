@@ -1,0 +1,28 @@
+# Default: detect text vs binary, normalize line endings to LF in the repo.
+* text=auto eol=lf
+
+# Shell scripts must stay LF on every platform.
+*.sh           text eol=lf
+hooks/session-start text eol=lf
+
+# Windows scripts must stay CRLF.
+*.cmd          text eol=crlf
+*.bat          text eol=crlf
+*.ps1          text eol=crlf
+
+# Markdown stays LF.
+*.md           text eol=lf
+
+# JSON / config stays LF.
+*.json         text eol=lf
+*.toml         text eol=lf
+*.yml          text eol=lf
+*.yaml         text eol=lf
+
+# Don't try to diff or eol-normalize binary assets.
+*.png          binary
+*.jpg          binary
+*.jpeg         binary
+*.gif          binary
+*.pdf          binary
+*.zip          binary

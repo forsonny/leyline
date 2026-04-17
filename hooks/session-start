@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Leyline session-start launcher (POSIX).
+# Called by the harness with a single argument naming the action to run.
+# Action "session-start" prints the entry skill (skills/using-leyline/SKILL.md)
+# to stdout so the harness injects it as system context.
+
+set -euo pipefail
+
+ACTION="${1:-}"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+case "$ACTION" in
+    session-start)
+        cat "$ROOT/skills/using-leyline/SKILL.md"
+        ;;
+    *)
+        echo "Leyline hook: unknown action \"$ACTION\"" >&2
+        exit 1
+        ;;
+esac

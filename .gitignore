@@ -1,0 +1,47 @@
+# Node / package managers (Leyline ships zero runtime deps; these are local-tool noise)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+
+# OS clutter
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+
+# Editor / IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Build artifacts (none today, future-proofing)
+dist/
+build/
+out/
+coverage/
+
+# Local deep-discovery / scratch files
+.deep-discovery-*.md
+.scratch/
+
+# MAKER framework state (plugin-maker runtime artifacts)
+.maker/
+.maker-*/
+maker-cache/
+maker-state/
+maker-checkpoints/
+maker-output/
+MAKER.md
+maker-*.md
+!MAKER-README.md

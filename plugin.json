@@ -1,0 +1,19 @@
+{
+  "name": "leyline",
+  "version": "1.0.0",
+  "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
+  "author": "Leyline contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/forsonny/leyline",
+  "repository": "https://github.com/forsonny/leyline.git",
+  "manifestClaudeCode": "CLAUDE.md",
+  "manifestAgents": "AGENTS.md",
+  "manifestGemini": "GEMINI.md",
+  "skills": "skills",
+  "agents": "agents",
+  "commands": "commands",
+  "hooks": {
+    "claudeCode": "hooks/hooks.json",
+    "cursor": "hooks/hooks-cursor.json"
+  }
+}

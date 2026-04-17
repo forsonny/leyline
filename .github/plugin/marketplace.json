@@ -1,0 +1,13 @@
+{
+  "name": "leyline-copilot-marketplace",
+  "description": "Marketplace self-hosting the Leyline developer-session workflow plugin for GitHub Copilot CLI.",
+  "owner": "forsonny",
+  "plugins": [
+    {
+      "name": "leyline",
+      "source": "github",
+      "repo": "forsonny/leyline",
+      "description": "Opinionated developer-session workflow. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/plugin.json",
+  "name": "leyline",
+  "version": "1.0.0",
+  "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
+  "author": {
+    "name": "Leyline contributors",
+    "url": "https://github.com/forsonny/leyline"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/forsonny/leyline",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forsonny/leyline.git"
+  },
+  "keywords": [
+    "workflow",
+    "tdd",
+    "design-driven-development",
+    "accessibility",
+    "code-review",
+    "pipeline",
+    "discipline"
+  ],
+  "skillsDirectory": "skills",
+  "agentsDirectory": "agents",
+  "commandsDirectory": "commands",
+  "hooksFile": "hooks/hooks.json"
+}
