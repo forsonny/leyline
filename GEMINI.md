@@ -4,6 +4,14 @@ Leyline is an opinionated developer-session workflow plugin that ships a behavio
 
 This file is the entry manifest Gemini CLI reads when the Leyline extension is installed. It complements `gemini-extension.json`, which carries machine-readable extension metadata.
 
+## First-response rule
+
+```
+Before any response or action - including clarifying questions - check whether any Leyline skill applies. If one does (probability >= 1%), invoke it before narrating. If none does, name the skills you considered and why you rejected each.
+```
+
+This rule is the single highest-leverage instruction in this manifest. It appears verbatim in `CLAUDE.md`, `AGENTS.md`, `README.md`, and `skills/using-leyline/SKILL.md` so every load path delivers it to the agent. Drift between files is caught by `scripts/check-manifests.sh`.
+
 ## Gemini CLI skill activation
 
 In Gemini CLI, skill metadata is loaded at session start and full skill content is activated on demand via the `activate_skill` tool. When the agent identifies a skill that applies, it calls `activate_skill` with the skill name. The tool returns the skill content for the agent to follow.

@@ -2,6 +2,14 @@
 
 Leyline is an opinionated developer-session workflow plugin that ships a behavior-shaping skill library, two specialized reviewer subagents, and a session-start hook that injects the entry skill into every new or reset conversation.
 
+## First-response rule
+
+```
+Before any response or action - including clarifying questions - check whether any Leyline skill applies. If one does (probability >= 1%), invoke it before narrating. If none does, name the skills you considered and why you rejected each.
+```
+
+This rule is the single highest-leverage instruction in this manifest. It appears verbatim in `AGENTS.md`, `GEMINI.md`, `README.md`, and `skills/using-leyline/SKILL.md` so every load path delivers it to the agent. Drift between files is caught by `scripts/check-manifests.sh`.
+
 ## Discovery
 
 - **Skills** live under `skills/` in a flat namespace. Every skill is a folder containing `SKILL.md`.

@@ -31,7 +31,15 @@ Never guess a skill name from training. Only invoke skills listed in the invento
 
 ## The rule
 
-Invoke relevant or requested skills BEFORE any response or action. Even a 1% chance a skill might apply means you invoke it to check. If it turns out not to apply, you don't have to follow it.
+```
+Before any response or action - including clarifying questions - check whether any Leyline skill applies. If one does (probability >= 1%), invoke it before narrating. If none does, name the skills you considered and why you rejected each.
+```
+
+This rule appears verbatim in `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `README.md`, and this skill so the same instruction reaches the agent through every load path. Drift across these files is caught by `scripts/check-manifests.sh`.
+
+If the rule applies and a skill does, invoke it via the harness's skill mechanism (`Skill` in Claude Code / Cursor; `skill` in Codex / OpenCode / Copilot CLI; `activate_skill` in Gemini CLI). Even a 1% chance a skill might apply means you invoke it to check; if it turns out not to apply, you do not have to follow it.
+
+Naming the skills you considered and why is the visible-justification clause: it makes the no-skill-applies path auditable. "I checked `brainstorming` (request is a question, not a build), `systematic-debugging` (no failure surfaced), `using-git-worktrees` (no isolation needed); none applies" is acceptable. "No skill applies" alone is not.
 
 ```dot
 digraph skill_flow {

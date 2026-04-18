@@ -30,6 +30,11 @@ LAWS=(
     "NO COMPLETION CLAIMS ON A USER-FACING SURFACE WITHOUT FRESH ACCESSIBILITY EVIDENCE"
 )
 
+# The first-response rule is the highest-leverage instruction in the plugin.
+# It must appear verbatim in every manifest so every load path delivers it.
+# Drift here is the same class of error as iron-law drift.
+FIRST_RESPONSE_RULE="Before any response or action - including clarifying questions - check whether any Leyline skill applies. If one does (probability >= 1%), invoke it before narrating. If none does, name the skills you considered and why you rejected each."
+
 fail=0
 
 for file in "${FILES[@]}"; do
@@ -45,13 +50,18 @@ for file in "${FILES[@]}"; do
             fail=1
         fi
     done
+
+    if ! grep -qF "$FIRST_RESPONSE_RULE" "$file"; then
+        echo "DRIFT:   $file does not contain the first-response rule verbatim" >&2
+        fail=1
+    fi
 done
 
 if [[ "$fail" -eq 0 ]]; then
-    echo "OK: all five iron laws present in all five manifests."
+    echo "OK: all five iron laws + first-response rule present in all five manifests."
     exit 0
 fi
 
 echo "" >&2
-echo "Iron-law drift detected. Update the affected manifest(s) so all five iron laws appear verbatim, then re-run." >&2
+echo "Manifest drift detected. Update the affected manifest(s) so the iron laws and the first-response rule appear verbatim, then re-run." >&2
 exit 1

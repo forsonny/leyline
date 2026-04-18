@@ -10,6 +10,16 @@ Leyline encodes one coherent developer session from first message to merged bran
 
 ---
 
+## First-response rule
+
+```
+Before any response or action - including clarifying questions - check whether any Leyline skill applies. If one does (probability >= 1%), invoke it before narrating. If none does, name the skills you considered and why you rejected each.
+```
+
+This rule is the single highest-leverage instruction Leyline ships. It appears verbatim in `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, and `skills/using-leyline/SKILL.md` so every load path delivers it to the agent. Drift between files is caught by `scripts/check-manifests.sh`.
+
+---
+
 ## What Leyline gives you
 
 - **A full development pipeline.** Eight stages covering Discovery, Interrogate, Isolate, Plan, Execute, Discipline, Review, and Finish. Each stage's skill names its successor; nothing improvises.
