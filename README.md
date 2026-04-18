@@ -197,3 +197,7 @@ PRs without the required skill-change-evidence section completed are closed unre
 ## License
 
 MIT. See [`LICENSE`](./LICENSE).
+
+---
+
+Inspired by [obra/superpowers](https://github.com/obra/superpowers).
