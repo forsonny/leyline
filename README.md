@@ -197,7 +197,7 @@ PRs without the required skill-change-evidence section completed are closed unre
 
 - [`RELEASE-NOTES.md`](./RELEASE-NOTES.md) - narrative release notes for significant versions
 - [`CHANGELOG.md`](./CHANGELOG.md) - complete change history
-- [`combined-workflow-prompt.md`](./combined-workflow-prompt.md) - the top-level specification the plugin was built from
+- [`dev/combined-workflow-prompt.md`](./dev/combined-workflow-prompt.md) - the top-level specification the plugin was built from
 - [`dev/`](./dev/) - reference corpus expanding every stage, structure, principle, and convention
 - [`docs/testing.md`](./docs/testing.md) - testing methodology
 - [`dev/reference/harness-matrix.md`](./dev/reference/harness-matrix.md) - per-harness feature availability

@@ -12,19 +12,36 @@ Before any response or action - including clarifying questions - check whether a
 
 This rule is the single highest-leverage instruction in this manifest. It appears verbatim in `CLAUDE.md`, `AGENTS.md`, `README.md`, and `skills/using-leyline/SKILL.md` so every load path delivers it to the agent. Drift between files is caught by `scripts/check-manifests.sh`.
 
-## Gemini CLI skill activation
+## Iron laws
 
-In Gemini CLI, skill metadata is loaded at session start and full skill content is activated on demand via the `activate_skill` tool. When the agent identifies a skill that applies, it calls `activate_skill` with the skill name. The tool returns the skill content for the agent to follow.
+```
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+NO USER-FACING SURFACE WITHOUT AN APPROVED DESIGN ARTIFACT FIRST
+NO COMPLETION CLAIMS ON A USER-FACING SURFACE WITHOUT FRESH ACCESSIBILITY EVIDENCE
+```
 
-Leyline's entry skill `using-leyline` is pre-activated by the session-start hook so skill-checking begins before the first response.
+> Violating the letter of the rules is violating the spirit of the rules.
 
-## Discovery
+## Hook-failure detection
 
-- **Skills** under `skills/` (flat namespace). Each skill is a folder with `SKILL.md`.
-- **Subagents** under `agents/`.
-- **Session-start hook** wired through `gemini-extension.json`.
+The session-start hook injects `skills/using-leyline/SKILL.md` into your context on every new / cleared / compacted conversation. If you do NOT see `using-leyline` content as system context at the start of this session, the hook silently failed. Surface this to the human partner immediately and proceed using only the manifest's first-response rule. Do NOT continue silently - sessions that proceed past a hook failure produce inconsistent discipline across messages.
 
-## Pipeline
+## Routing - where to enter
+
+Map the human partner's opening message to the right entry skill:
+
+| Human partner says | Entry skill |
+|--------------------|-------------|
+| "let's build X", "I want to add Y", "we should make Z" | `brainstorming` (stage 1a) |
+| "debug this", "fix this bug", "something is broken" | `systematic-debugging` (6a.2) |
+| "review this code" | `requesting-code-review` (stage 7) |
+| "start implementing the plan", "execute the plan" | `subagent-driven-development` or `executing-plans` (stage 5) |
+
+Full routing table including kept-branch resume, planning, and finishing entry points lives in `skills/using-leyline/SKILL.md`.
+
+## Pipeline (stages in order)
 
 | # | Stage | Skill(s) |
 |---|-------|----------|
@@ -39,15 +56,18 @@ Leyline's entry skill `using-leyline` is pre-activated by the session-start hook
 
 Each skill names its successor.
 
-## Iron laws
+## Terminology
 
-- `NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST`
-- `NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST`
-- `NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE`
-- `NO USER-FACING SURFACE WITHOUT AN APPROVED DESIGN ARTIFACT FIRST`
-- `NO COMPLETION CLAIMS ON A USER-FACING SURFACE WITHOUT FRESH ACCESSIBILITY EVIDENCE`
+- **Human partner** (never "user").
+- **Discovery** (stage 1), not "Design".
+- **Experience** (6b overlay), not "Frontend" / "UI".
+- **UX artifact**, not "mockup".
 
-> Violating the letter of the rules is violating the spirit of the rules.
+## Gemini CLI skill activation
+
+In Gemini CLI, skill metadata is loaded at session start and full skill content is activated on demand via the `activate_skill` tool. When the agent identifies a skill that applies (per the First-response rule above), it calls `activate_skill` with the skill name. The tool returns the skill content for the agent to follow.
+
+Leyline's entry skill `using-leyline` is pre-activated by the session-start hook so skill-checking begins before the first response.
 
 ## Tool-name mapping for Gemini CLI
 
@@ -67,19 +87,7 @@ Skills are authored against Claude Code tool names. Substitute as follows when a
 
 If a skill references a tool that has no Gemini CLI equivalent, the skill still applies; execute the closest available action and document the substitution.
 
-## Terminology
-
-- **Human partner** (never "user").
-- **Discovery** (stage 1), not "Design".
-- **Experience** (6b overlay), not "Frontend" / "UI".
-- **UX artifact**, not "mockup".
-
-## Contributor rules
-
-- No third-party dependencies except to add harness support.
-- No domain-specific skills; those belong in standalone plugins that extend Leyline.
-- Skills are behavior-shaping code. Modifications require pressure-test evidence under `tests/`.
-- Final step of any work: update `CHANGELOG.md` and bump version via `scripts/bump-version.sh`.
+Optional MCPs and tools (browser automation, a11y scanners, design-tool MCPs, snapshot tools) are detected at dispatch time by the relevant subagent. Catalogue: `dev/reference/recommended-optional-tools.md`. Zero-dependency.
 
 ## Related
 
@@ -87,3 +95,4 @@ If a skill references a tool that has no Gemini CLI equivalent, the skill still 
 - `README.md`
 - `CLAUDE.md`, `AGENTS.md` - manifests for other harnesses
 - `skills/using-leyline/SKILL.md` - entry skill
+- `dev/reference/recommended-optional-tools.md` - optional tool catalogue
