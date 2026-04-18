@@ -9,10 +9,7 @@
   },
   "license": "MIT",
   "homepage": "https://github.com/forsonny/leyline",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/forsonny/leyline.git"
-  },
+  "repository": "https://github.com/forsonny/leyline.git",
   "keywords": [
     "workflow",
     "tdd",
