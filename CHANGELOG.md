@@ -2,6 +2,40 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.0] - 2026-04-18
+
+`deep-discovery` convergence rule - closes runaway-loop and stop-early failure modes with a per-finding classification gate.
+
+### Patch - deep-discovery step 4 classification rule
+
+- Rewrote step 4 of `skills/deep-discovery/SKILL.md` to require per-finding classification with literal `(S)` / `(O)` / `(R)` / `(E)` letter tags before any material-or-not decision.
+  - `(S) Structural` - a named approach, constraint, goal, non-goal, or dependency cannot survive the finding. Always material.
+  - `(O) Operational` - runtime, scale, security, observability, rollback, migration, or on-call concern the spec does not address. Always material.
+  - `(R) Second-order refinement` - internal-consistency fix between edits made in rounds 1..N-1, or sub-line clarity inside those edits. Not material.
+  - `(E) Editorial` - terminology, phrasing, or naming inside the existing approach. Not material.
+- Split the "non-material" exit into a new **convergence candidate** path: when all findings are `(R)` or `(E)`, the agent presents the per-finding classification, the count trend across rounds, and a completion-or-continue recommendation with reasoning to the human partner and WAITS. The completion marker is NOT appended without explicit human-partner approval, even when delegation was given in advance.
+- Made "unreachable" categorical and duration-independent: scheduled meetings, flights, step-outs, indefinite absences all count. Duration of the absence does not scale the authorization.
+
+### Patch - new anti-patterns, red flags, and forbidden phrases
+
+Added to `skills/deep-discovery/SKILL.md`:
+
+- **Anti-patterns (four new):** "Every Round Is Material Because I Keep Finding Something", "Delegation Authorizes The Action, Not Just The Recommendation", "Delegation Is Ongoing Authorization, Not Pre-Paid Consent", "Convergence-Metaphor Substitutes For Classification".
+- **Red flags (seven new rows):** round-count appeals, material-finding-conflation, delegation-as-action, reachability-gradient, pre-paid-consent, tag-skipping, deferral-as-abdication.
+- **Forbidden phrases (ten new):** verbatim surfaces observed under pressure-test, including "editorial whack-a-mole", "we are in the noise floor", "the pattern argues against it", "abdication dressed as caution", "seven full passes is empirically adequate", "the delegation was pre-paid consent", "a scheduled absence is different from real unreachability".
+
+### Patch - new test group + scenario + traces
+
+- Created `tests/deep-discovery/` as a new test group.
+- Added `tests/deep-discovery/converge-or-loop.md` - pressure-test scenario for convergence vs runaway-loop behavior. Captures RED baseline (agent auto-decides without classification under delegation), GREEN (classification applied, marker held for human-partner review), REFACTOR round-2-editorial-only variant (same behavior at lower round count), and closure verification trace (post-hardening pressure test with scheduled-absence + pre-paid-consent framings both rejected).
+- Updated `tests/README.md` and `skills/writing-skills/testing-skills-with-subagents.md` suite-layout tables to reference the new group.
+
+### Version
+
+Bumped to 1.2.0 across `package.json`, `gemini-extension.json`, `plugin.json`, `.claude-plugin/plugin.json`, and `.opencode/plugins/leyline.js`. Change is additive at the skill level (new classification rule supersedes step 4 prose but preserves the material/non-material concept; no existing skill names, descriptions, or successor chains touched); minor-version bump per semver.
+
+Open future-hardening candidates from the first REFACTOR trace, left unclosed pending real-session evidence: "tags are obvious enough that writing them is ceremony" (tag-skip), "substituting procedural judgment for the human partner's stated preference" (insubordination framing), "running an extra round is always conservative" (over-running as mirror failure).
+
 ## [1.1.0] - 2026-04-18
 
 Manifest behavior-shaping pass (three patches: A, B, C).

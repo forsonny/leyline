@@ -84,6 +84,7 @@ Under `tests/`:
 |-----------|-------|
 | `brainstorm-server/` | Brainstorming hard gate against a controlled server harness |
 | `claude-code/` | Claude Code-specific scenarios |
+| `deep-discovery/` | Deep-discovery convergence and runaway-loop behavior |
 | `opencode/` | OpenCode-specific scenarios |
 | `explicit-skill-requests/` | Human partner naming the skill by hand |
 | `skill-triggering/` | Description-based automatic activation |
