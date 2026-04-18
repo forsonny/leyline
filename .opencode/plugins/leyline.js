@@ -13,7 +13,7 @@ const root = path.resolve(here, "..", "..");
 
 export default {
     name: "leyline",
-    version: "1.0.0",
+    version: "1.1.0",
     manifest: path.join(root, "AGENTS.md"),
     skillsDir: path.join(root, "skills"),
     agentsDir: path.join(root, "agents"),

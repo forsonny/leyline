@@ -2,6 +2,39 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.1.0] - 2026-04-18
+
+Manifest behavior-shaping pass (three patches: A, B, C).
+
+### Patch A - first-response rule with lint and canonical scenario
+
+- Promoted one verbatim first-response rule across five files (`CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `README.md`, `skills/using-leyline/SKILL.md`). Same architecture as the iron laws: write once, ship identically, lint for drift.
+- Tightened `skills/using-leyline/SKILL.md`'s "## The rule" section to lift the same wording verbatim and add a visible-justification clause for the no-skill-applies path ("name the skills you considered and why you rejected each").
+- Extended `scripts/check-manifests.sh` with a `FIRST_RESPONSE_RULE` invariant.
+- Created `tests/manifest-behavior/first-response-with-hook-failure.md` - the canonical scenario testing manifest behavior when the session-start hook fails to inject `using-leyline`.
+
+### Patch B - structural reshape
+
+- Reordered all three manifests so load-bearing content (first-response rule, iron laws, hook-failure detection, routing, pipeline) precedes orientation content (Discovery, platform adaptation, contributor rules, related).
+- Added "Hook-failure detection" section to all three manifests (NOT in `using-leyline` itself, since the entry skill is the thing being detected as missing).
+- Added "Routing - where to enter" 4-row table verbatim from `using-leyline` to all three manifests; full routing table stays in the entry skill.
+- Dropped the "Exit" column from CLAUDE.md's pipeline table (reduces drift surface vs README's pipeline-at-a-glance).
+- Symmetrized AGENTS.md tool-mapping into per-harness pointers (Codex, OpenCode, Copilot CLI). Surfaced `docs/README.copilot-cli.md` as a missing doc - addressed in Patch C.
+- All three manifests now reference `dev/reference/recommended-optional-tools.md` rather than enumerating MCPs inline.
+- CLAUDE.md contributor rules moved to the bottom (after the agent-facing load-bearing block).
+- Lint extensions: ROUTING_ROWS array (8 substring matches), TERMINOLOGY_TERMS array (4 terms), HOOK_FAILURE_ANCHOR check; routing and terminology scoped to AGENT_FACING_FILES (3 manifests + entry skill); README is human-facing and exempted.
+- Added `tests/manifest-behavior/routing-table-correct-skill-pick.md` as the second canonical scenario.
+- Per the deep-discovery recommendation, no forbidden phrases added in this patch - those require manifest-targeted RED traces which do not yet exist. A future Patch B.5 will add them once traces are captured.
+
+### Patch C - Copilot CLI doc + manifests-doc update
+
+- Added `docs/README.copilot-cli.md` (UNVERIFIED, matching the Codex/OpenCode docs' verification posture). Includes install commands, verify steps, tool-name mapping table, limitations (subagent support, parallel-dispatch primitive availability, hook firing, marketplace fetching), and cross-references.
+- Updated `dev/structure/manifests.md` with a drift-lint coverage table and a manifest section-ordering reference reflecting the post-Patch-B structure.
+
+### Version
+
+Bumped to 1.1.0 across `package.json`, `gemini-extension.json`, `plugin.json`, `.claude-plugin/plugin.json`, and `.opencode/plugins/leyline.js`. The behavior-shaping changes are additive (no breaking changes to existing skill names, descriptions, or successor chains); minor-version bump per semver.
+
 ## [1.0.0] - 2026-04-17
 
 First stable release. Structural completeness across the full eight-stage pipeline plus meta-skill; marketplace manifests wired for all six supported harnesses.
