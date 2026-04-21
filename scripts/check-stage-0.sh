@@ -7,7 +7,7 @@
 #   - per-skill SKILL.md frontmatter is under 1024 bytes and has name+description
 #   - version field is consistent across package.json, gemini-extension.json,
 #     plugin.json, .claude-plugin/plugin.json, .codex-plugin/plugin.json,
-#     .opencode/plugins/leyline.js, and the README badge
+#     and the README badge
 #   - shell scripts are executable in the index (or this is a fresh repo)
 #   - manifest iron-law sync passes
 #
@@ -115,14 +115,13 @@ done < <(find "$ROOT/skills" -type f -name SKILL.md -print0 2>/dev/null)
 # Version sync
 pkg_ver=$(grep -E '"version"' "$ROOT/package.json" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 ext_ver=$(grep -E '"version"' "$ROOT/gemini-extension.json" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
-shim_ver=$(grep -E 'version:' "$ROOT/.opencode/plugins/leyline.js" | head -n 1 | sed -E 's/.*version:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 root_plugin_ver=$(grep -E '"version"' "$ROOT/plugin.json" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 claude_plugin_ver=$(grep -E '"version"' "$ROOT/.claude-plugin/plugin.json" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 codex_plugin_ver=$(grep -E '"version"' "$ROOT/.codex-plugin/plugin.json" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 readme_badge_ver=$(grep -Eo 'Version-[0-9]+\.[0-9]+\.[0-9]+-green\.svg' "$ROOT/README.md" | head -n 1 | sed -E 's/^Version-([0-9]+\.[0-9]+\.[0-9]+)-green\.svg$/\1/' | tr -d '\r')
 
-if [[ "$pkg_ver" != "$ext_ver" || "$pkg_ver" != "$shim_ver" || "$pkg_ver" != "$root_plugin_ver" || "$pkg_ver" != "$claude_plugin_ver" || "$pkg_ver" != "$codex_plugin_ver" || "$pkg_ver" != "$readme_badge_ver" ]]; then
-    echo "VERSION DRIFT: package.json=$pkg_ver gemini-extension.json=$ext_ver plugin.json=$root_plugin_ver .claude-plugin/plugin.json=$claude_plugin_ver .codex-plugin/plugin.json=$codex_plugin_ver .opencode/plugins/leyline.js=$shim_ver README.md=$readme_badge_ver" >&2
+if [[ "$pkg_ver" != "$ext_ver" || "$pkg_ver" != "$root_plugin_ver" || "$pkg_ver" != "$claude_plugin_ver" || "$pkg_ver" != "$codex_plugin_ver" || "$pkg_ver" != "$readme_badge_ver" ]]; then
+    echo "VERSION DRIFT: package.json=$pkg_ver gemini-extension.json=$ext_ver plugin.json=$root_plugin_ver .claude-plugin/plugin.json=$claude_plugin_ver .codex-plugin/plugin.json=$codex_plugin_ver README.md=$readme_badge_ver" >&2
     fail=1
 fi
 

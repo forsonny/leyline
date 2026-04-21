@@ -7,13 +7,16 @@ Files at the repo root that describe the package rather than its behavior.
 ```json
 {
   "name": "leyline",
-  "version": "0.1.0",
+  "version": "1.2.1",
   "type": "module",
-  "main": ".opencode/plugins/leyline.js"
+  "main": ".opencode/plugins/leyline.js",
+  "exports": {
+    ".": "./.opencode/plugins/leyline.js"
+  }
 }
 ```
 
-Minimal manifest. The `main` entry points at an OpenCode plugin shim. The `type: module` is ESM. The `name` is what marketplace installers register; the `version` is kept in sync with the other shipped manifests by `scripts/bump-version.sh`.
+Minimal manifest. The `main` and `exports` entries point at the OpenCode plugin module. The `type: module` is ESM. The `name` is what npm/OpenCode load, and the `version` is kept in sync with the other shipped manifests by `scripts/bump-version.sh`.
 
 ## `CHANGELOG.md`
 

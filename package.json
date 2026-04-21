@@ -1,11 +1,15 @@
 {
   "name": "leyline",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "main": ".opencode/plugins/leyline.js",
+  "exports": {
+    ".": "./.opencode/plugins/leyline.js"
+  },
   "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
   "license": "MIT",
   "scripts": {
-    "bump": "bash scripts/bump-version.sh"
+    "bump": "bash scripts/bump-version.sh",
+    "test": "node --test tests/opencode/plugin-install.test.mjs"
   }
 }

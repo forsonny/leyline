@@ -2,6 +2,18 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.2] - 2026-04-21
+
+OpenCode install path corrected to the real plugin API and backed by automated verification.
+
+### Patch - OpenCode plugin install
+
+- Replaced `.opencode/plugins/leyline.js`'s metadata shim with a real OpenCode plugin export and added a package `exports` entry for npm/plugin loading.
+- The OpenCode plugin now syncs Leyline's `skills/`, `commands/`, and OpenCode-compatible reviewer agents into `~/.config/opencode/`, then injects `AGENTS.md` plus `skills/using-leyline/SKILL.md` through `experimental.chat.system.transform`.
+- Added `tests/opencode/plugin-install.test.mjs` and an `npm test` script to verify the OpenCode plugin contract: function export, asset sync, reviewer-agent normalization, and prompt injection.
+- Rewrote `docs/README.opencode.md`, `.opencode/INSTALL.md`, `README.md`, `dev/reference/harness-matrix.md`, and `dev/structure/metadata.md` to describe the working symlink/plugin flow instead of the stale manual-hook guidance.
+- Updated `scripts/bump-version.sh` and `scripts/check-stage-0.sh` so version drift checks no longer depend on a fake version field inside `.opencode/plugins/leyline.js`.
+
 ## [1.2.1] - 2026-04-21
 
 Codex install docs corrected to the current marketplace flow, plus release metadata sync hardening.
@@ -12,6 +24,7 @@ Codex install docs corrected to the current marketplace flow, plus release metad
 - Added `.agents/plugins/marketplace.json` and `.codex-plugin/plugin.json` so current Codex can actually discover Leyline from a repo marketplace instead of only registering the repo source.
 - Fixed `skills/design-driven-development/SKILL.md` frontmatter so Codex no longer rejects the skill for invalid YAML during plugin load.
 - Updated the root `README.md`, `dev/reference/harness-matrix.md`, and `dev/structure/docs.md` so Codex is no longer described as a manual-fetch plus hand-wired TOML install.
+- Clarified in `docs/README.codex.md`, `.codex/INSTALL.md`, `README.md`, and `dev/structure/commands.md` that Codex does not surface Leyline's `commands/` files as plugin slash commands; use `@leyline` or explicit skills instead.
 - Clarified in `skills/using-leyline/references/codex-tools.md` that the Codex install flow was revalidated against `codex-cli 0.122.0`, while the tool-name table remains a maintained reference.
 
 ### Patch - release metadata sync

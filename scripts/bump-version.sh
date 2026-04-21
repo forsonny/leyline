@@ -20,7 +20,6 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PKG="$ROOT/package.json"
 CHANGELOG="$ROOT/CHANGELOG.md"
 GEMINI_EXT="$ROOT/gemini-extension.json"
-OPENCODE_SHIM="$ROOT/.opencode/plugins/leyline.js"
 ROOT_PLUGIN="$ROOT/plugin.json"
 CLAUDE_PLUGIN="$ROOT/.claude-plugin/plugin.json"
 CODEX_PLUGIN="$ROOT/.codex-plugin/plugin.json"
@@ -50,13 +49,6 @@ if [[ -f "$GEMINI_EXT" ]]; then
     tmp="$GEMINI_EXT.tmp"
     sed -E "s/(\"version\"[[:space:]]*:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$GEMINI_EXT" > "$tmp"
     mv "$tmp" "$GEMINI_EXT"
-fi
-
-# Sync .opencode/plugins/leyline.js version field
-if [[ -f "$OPENCODE_SHIM" ]]; then
-    tmp="$OPENCODE_SHIM.tmp"
-    sed -E "s/(version:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$OPENCODE_SHIM" > "$tmp"
-    mv "$tmp" "$OPENCODE_SHIM"
 fi
 
 # Sync root plugin.json version

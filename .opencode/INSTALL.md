@@ -1,27 +1,18 @@
 # OpenCode install (quick reference)
 
-> **UNVERIFIED.** The OpenCode auto-discovery path, plugin shim shape, and `hooks.sessionStart` config below have not been confirmed against current OpenCode documentation. If OpenCode rejects the plugin or fails to fire the hook, consult the latest OpenCode docs and update this file plus `../docs/README.opencode.md` and `../.opencode/plugins/leyline.js`.
-
 Full guide: `../docs/README.opencode.md`.
 
-1. Clone into `~/.opencode/plugins/leyline`:
+1. Clone Leyline anywhere convenient:
 
    ```
-   git clone https://github.com/forsonny/leyline.git ~/.opencode/plugins/leyline
+   git clone https://github.com/forsonny/leyline.git ~/src/leyline
    ```
-2. OpenCode auto-discovers plugins under `~/.opencode/plugins/`.
-3. If the session-start hook does not fire automatically, wire it manually in `~/.opencode/config.json`:
+2. Symlink the plugin entry into OpenCode's plugin directory:
 
    ```
-   {
-     "hooks": {
-       "sessionStart": {
-         "command": "~/.opencode/plugins/leyline/hooks/session-start",
-         "args": ["session-start"],
-         "async": false
-       }
-     }
-   }
+   mkdir -p ~/.config/opencode/plugins
+   ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
    ```
 
-4. Restart OpenCode. Confirm by starting a new session and asking "let's build X" - the agent should invoke `brainstorming`.
+3. Restart OpenCode. The plugin syncs Leyline assets into `~/.config/opencode/` and injects its instructions automatically; no manual hook config is required.
+4. Confirm by starting a new session and asking "let's build X" - the agent should invoke `brainstorming`.

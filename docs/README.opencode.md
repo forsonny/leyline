@@ -1,38 +1,59 @@
 # Leyline on OpenCode
 
-> **UNVERIFIED.** The auto-discovery path (`~/.opencode/plugins/`), the JavaScript shim shape, and the `hooks.sessionStart` config below are starting points based on the dev/ corpus. They have not been validated end-to-end against the current OpenCode release. If anything here is wrong, file an issue and update this file plus `.opencode/plugins/leyline.js`.
+Leyline installs on OpenCode as a real plugin module, not as a metadata shim and not via manual hook wiring.
 
-OpenCode installs Leyline as a local plugin with a small JavaScript shim.
+The plugin does three things on startup:
 
-## Install
+1. Syncs Leyline's `skills/`, `commands/`, and OpenCode-compatible `agents/` into `~/.config/opencode/`
+2. Injects `AGENTS.md` into the system prompt
+3. Injects `skills/using-leyline/SKILL.md` into the system prompt so the first-response rule is active from the first turn
 
-1. Clone the Leyline repo:
+## Install from a local checkout
 
-       git clone https://github.com/forsonny/leyline.git ~/.opencode/plugins/leyline
+1. Clone Leyline anywhere convenient:
 
-2. OpenCode auto-discovers plugins under `~/.opencode/plugins/`. The plugin entry point is `.opencode/plugins/leyline.js` (referenced by `package.json`'s `main` field).
+       git clone https://github.com/forsonny/leyline.git ~/src/leyline
 
-3. Wire the session-start hook manually if OpenCode does not honor the JSON registration in `hooks/`:
+2. Symlink the plugin entry into OpenCode's plugin directory.
 
-   Add to `~/.opencode/config.json`:
+   POSIX:
 
-       {
-         "hooks": {
-           "sessionStart": {
-             "command": "~/.opencode/plugins/leyline/hooks/session-start",
-             "args": ["session-start"],
-             "async": false
-           }
-         }
-       }
+       mkdir -p ~/.config/opencode/plugins
+       ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
 
-   On Windows, substitute `hooks/run-hook.cmd`.
+   PowerShell:
 
-4. Restart OpenCode.
+       New-Item -ItemType Directory -Force "$HOME/.config/opencode/plugins" | Out-Null
+       New-Item -ItemType SymbolicLink -Force -Path "$HOME/.config/opencode/plugins/leyline.js" -Target "$HOME/src/leyline/.opencode/plugins/leyline.js" | Out-Null
+
+3. Restart OpenCode.
+
+Because the plugin resolves its real path before loading assets, symlinking the single `leyline.js` entry file is enough; you do not need to copy the whole repository into the plugin directory.
+
+## Install from npm
+
+If Leyline is published to npm, OpenCode can install it directly from `opencode.json` because the package now exports a valid plugin module:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["leyline"]
+}
+```
 
 ## Verify
 
-Start a new session and say "let's build a login page." The agent should invoke `brainstorming`.
+Start a new OpenCode session and say:
+
+> let's build a login page
+
+Expected behavior:
+
+- The agent announces it is using Leyline
+- The first applicable skill is invoked before any normal narration
+- `brainstorming` is selected for this opening
+
+Automated verification for the plugin contract lives in `tests/opencode/plugin-install.test.mjs`.
 
 ## Tool-name mapping
 
@@ -52,13 +73,13 @@ OpenCode uses these names; substitute when reading skill text:
 
 ## Limitations
 
-- Subagent support in OpenCode is variable. `executing-plans` is the safer choice in most OpenCode sessions; `subagent-driven-development` works when the harness provides a subagent dispatch tool.
-- `hooks-cursor.json` is not used by OpenCode; the `hooks/` scripts are the source of truth.
-- **Parallel-dispatch primitive.** `dispatching-parallel-agents` requires concurrent dispatch of 2+ subagents. OpenCode's subagent support is limited and parallel batching is not guaranteed. When unavailable, sequential dispatch is a fallback with reduced independence guarantees. Stage 7's code + design review run sequentially in that configuration.
+- Subagent support in OpenCode is variable. `executing-plans` is the safer choice in sessions without reliable subagent dispatch; `subagent-driven-development` works when the harness provides it.
+- `dispatching-parallel-agents` assumes truly concurrent subagent execution. When OpenCode cannot provide that, sequential dispatch is the fallback with reduced independence guarantees.
+- The plugin syncs Leyline-owned files into `~/.config/opencode/{skills,commands,agents}`. If you have local customizations with the same names, Leyline's shipped copies will replace them on plugin load.
 
 ## Related
 
-- `../AGENTS.md` - entry manifest OpenCode reads
-- `../.opencode/plugins/leyline.js` - plugin shim
-- `../hooks/session-start`, `../hooks/run-hook.cmd`
+- `../AGENTS.md` - Leyline manifest injected by the plugin
+- `../.opencode/plugins/leyline.js` - OpenCode plugin module
+- `../tests/opencode/plugin-install.test.mjs` - automated plugin verification
 - `README.codex.md` - sibling install guide for Codex

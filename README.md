@@ -3,7 +3,7 @@
 **An opinionated developer-session workflow plugin for Claude Code, Cursor, Codex, OpenCode, GitHub Copilot CLI, and Gemini CLI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-green.svg)](./CHANGELOG.md)
+[![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-green.svg)](./CHANGELOG.md)
 [![Harnesses: 6](https://img.shields.io/badge/Harnesses-6-informational)](./dev/reference/harness-matrix.md)
 
 Leyline encodes one coherent developer session from first message to merged branch as a deterministic pipeline of skills that hand off to each other in a fixed order. Every stage has an entry gate, a verifiable output, and an explicit successor. No stage silently skips. No completion claim ships without evidence. The iron laws are enforced at every handoff.
@@ -104,13 +104,17 @@ codex plugin marketplace add forsonny/leyline
 
 Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-specific marketplace, install, and verification notes. Codex's official Plugin Directory is curated; Leyline appears through the repo marketplace shipped in [marketplace.json](./.agents/plugins/marketplace.json) and the Codex plugin manifest in [plugin.json](./.codex-plugin/plugin.json), not as an OpenAI-curated plugin.
 
-### OpenCode (manual fetch)
+### OpenCode
+
+Clone Leyline anywhere, then symlink the real plugin entry into OpenCode's plugin directory:
 
 ```
-git clone https://github.com/forsonny/leyline.git ~/.opencode/plugins/leyline
+git clone https://github.com/forsonny/leyline.git ~/src/leyline
+mkdir -p ~/.config/opencode/plugins
+ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
 ```
 
-Then follow [`docs/README.opencode.md`](./docs/README.opencode.md) for the plugin shim and hook configuration.
+Then follow [`docs/README.opencode.md`](./docs/README.opencode.md) for the full install, Windows variant, and verification notes. No manual hook wiring is needed; the plugin injects Leyline's instructions itself.
 
 ### After install
 
