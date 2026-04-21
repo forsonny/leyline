@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/anthropics/claude-code/main/schemas/plugin.json",
   "name": "leyline",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
   "author": {
     "name": "Leyline contributors",

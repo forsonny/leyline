@@ -8,7 +8,7 @@ Per-harness support for the plugin's mechanisms.
 |---------|----------------|----------------|-----------|----------------|-----------|---------------------|
 | Claude Code (self-hosted marketplace) | `/plugin marketplace add forsonny/leyline` then `/plugin install leyline@leyline-marketplace` | `CLAUDE.md` | `hooks/hooks.json` | yes | yes | alpha (install paths set up; traces pending per `tests/skill-triggering/`) |
 | Cursor | `/add-plugin leyline` or marketplace search | `CLAUDE.md` | `hooks/hooks-cursor.json` | yes | yes | unverified (see `hooks/hooks-cursor.json` and `docs/windows/launcher-notes.md`; the env variable name `${CURSOR_PLUGIN_ROOT}` has not been confirmed against current Cursor docs) |
-| Codex | Manual fetch + follow `.codex/INSTALL.md` | `AGENTS.md` | manual wiring | limited | yes | unverified (TOML `[[hooks.session_start]]` shape has not been confirmed against current Codex docs) |
+| Codex | `codex plugin marketplace add forsonny/leyline`, then install from Codex's plugin UI | `AGENTS.md` | session-start injection not yet revalidated | limited | yes | partial (marketplace registration verified on `codex-cli 0.122.0`; final UI install and hook firing still unverified) |
 | OpenCode | Manual fetch + follow `.opencode/INSTALL.md` | `AGENTS.md` | manual wiring | limited | limited | unverified (auto-discovery path and shim shape have not been confirmed against current OpenCode docs) |
 | GitHub Copilot CLI | `copilot plugin marketplace add` + `plugin install` | `AGENTS.md` | via marketplace | yes | limited | unverified |
 | Gemini CLI | `gemini extensions install https://github.com/.../leyline` | `GEMINI.md` + `gemini-extension.json` | via extension | yes | limited | unverified |

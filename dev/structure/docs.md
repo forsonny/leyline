@@ -15,7 +15,7 @@
 
 ## Why per-harness READMEs live here
 
-Claude Code and Cursor install from plugin marketplaces and don't need standalone install docs — the root `README.md` covers them. Codex and OpenCode require manual fetch + follow steps, so they get dedicated docs under `docs/`.
+Claude Code and Cursor install from plugin marketplaces and don't need standalone install docs — the root `README.md` covers them. Codex and OpenCode still need harness-specific notes beyond the root README, so they keep dedicated docs under `docs/`.
 
 ## Spec archive convention
 

@@ -4,8 +4,9 @@
 # Usage:
 #     scripts/bump-version.sh <patch|minor|major|X.Y.Z>
 #
-# Edits package.json's version, appends a stub entry to CHANGELOG.md,
-# and prints a reminder to update RELEASE-NOTES.md for significant releases.
+# Edits the versioned manifests, appends a stub entry to CHANGELOG.md,
+# syncs the README badge, and prints a reminder to update RELEASE-NOTES.md
+# for significant releases.
 
 set -euo pipefail
 
@@ -20,6 +21,9 @@ PKG="$ROOT/package.json"
 CHANGELOG="$ROOT/CHANGELOG.md"
 GEMINI_EXT="$ROOT/gemini-extension.json"
 OPENCODE_SHIM="$ROOT/.opencode/plugins/leyline.js"
+ROOT_PLUGIN="$ROOT/plugin.json"
+CLAUDE_PLUGIN="$ROOT/.claude-plugin/plugin.json"
+README="$ROOT/README.md"
 
 current=$(grep -E '"version"' "$PKG" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
 IFS='.' read -r MAJ MIN PAT <<< "$current"
@@ -52,6 +56,29 @@ if [[ -f "$OPENCODE_SHIM" ]]; then
     tmp="$OPENCODE_SHIM.tmp"
     sed -E "s/(version:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$OPENCODE_SHIM" > "$tmp"
     mv "$tmp" "$OPENCODE_SHIM"
+fi
+
+# Sync root plugin.json version
+if [[ -f "$ROOT_PLUGIN" ]]; then
+    tmp="$ROOT_PLUGIN.tmp"
+    sed -E "s/(\"version\"[[:space:]]*:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$ROOT_PLUGIN" > "$tmp"
+    mv "$tmp" "$ROOT_PLUGIN"
+fi
+
+# Sync .claude-plugin/plugin.json version
+if [[ -f "$CLAUDE_PLUGIN" ]]; then
+    tmp="$CLAUDE_PLUGIN.tmp"
+    sed -E "s/(\"version\"[[:space:]]*:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$CLAUDE_PLUGIN" > "$tmp"
+    mv "$tmp" "$CLAUDE_PLUGIN"
+fi
+
+# Sync README badge version
+if [[ -f "$README" ]]; then
+    tmp="$README.tmp"
+    sed -E \
+        -e "s/\[!\[Version: [^]]+\]\(https:\/\/img\.shields\.io\/badge\/Version-[^)]+-green\.svg\)\]/[![Version: ${new}](https:\/\/img.shields.io\/badge\/Version-${new}-green.svg)]/" \
+        "$README" > "$tmp"
+    mv "$tmp" "$README"
 fi
 
 # Prepend changelog stub under the top-level heading

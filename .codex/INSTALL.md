@@ -1,28 +1,25 @@
 # Codex install (quick reference)
 
-> **UNVERIFIED.** The Codex `[[plugins]]` and `[[hooks.session_start]]` TOML keys below have not been confirmed against current Codex documentation. Treat as a starting point; if Codex rejects the config or fails to fire the hook, consult the latest Codex docs and update this file plus `../docs/README.codex.md`.
+> Verified locally against `codex-cli 0.122.0` on 2026-04-20 / 2026-04-21 UTC.
+>
+> `codex plugin marketplace add` works against this repo. The old `[[plugins]]` / `[[hooks.session_start]]` TOML flow is no longer the recommended path here.
 
 Full guide: `../docs/README.codex.md`.
 
-1. Clone into `~/.codex/plugins/leyline  (after `git clone https://github.com/forsonny/leyline.git ~/.codex/plugins/leyline`)`.
-2. Register the plugin in `~/.codex/config.toml`:
+1. Register the marketplace:
 
-   ```
-   [[plugins]]
-   name = "leyline"
-   path = "~/.codex/plugins/leyline  (after `git clone https://github.com/forsonny/leyline.git ~/.codex/plugins/leyline`)"
-   manifest = "AGENTS.md"
-   ```
+       codex plugin marketplace add forsonny/leyline
 
-3. Wire the session-start hook in the same file:
+   For a local checkout, run from the repo root:
 
-   ```
-   [[hooks.session_start]]
-   command = "~/.codex/plugins/leyline  (after `git clone https://github.com/forsonny/leyline.git ~/.codex/plugins/leyline`)/hooks/session-start"
-   args = ["session-start"]
-   async = false
-   ```
+       codex plugin marketplace add .
 
-   On Windows, substitute `hooks/run-hook.cmd`.
+2. Restart Codex.
 
-4. Restart Codex. Confirm by starting a new session and asking "let's build X".
+3. Install `leyline` from the `leyline-marketplace` entry in Codex's plugin UI.
+
+4. Update later with:
+
+       codex plugin marketplace upgrade leyline-marketplace
+
+5. Confirm by starting a new session and asking "let's build X".

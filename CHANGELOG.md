@@ -2,6 +2,23 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.1] - 2026-04-21
+
+Codex install docs corrected to the current marketplace flow, plus release metadata sync hardening.
+
+### Patch - Codex install path
+
+- Replaced the stale Codex `[[plugins]]` / `[[hooks.session_start]]` guidance with the verified `codex plugin marketplace add` flow in `docs/README.codex.md` and `.codex/INSTALL.md`.
+- Updated the root `README.md`, `dev/reference/harness-matrix.md`, and `dev/structure/docs.md` so Codex is no longer described as a manual-fetch plus hand-wired TOML install.
+- Clarified in `skills/using-leyline/references/codex-tools.md` that the Codex install flow was revalidated against `codex-cli 0.122.0`, while the tool-name table remains a maintained reference.
+
+### Patch - release metadata sync
+
+- Synced version `1.2.1` across `package.json`, `gemini-extension.json`, `plugin.json`, `.claude-plugin/plugin.json`, and `.opencode/plugins/leyline.js`.
+- Updated the README version badge to `1.2.1`.
+- Hardened `scripts/bump-version.sh` so future releases also sync `plugin.json`, `.claude-plugin/plugin.json`, and the README badge.
+- Hardened `scripts/check-stage-0.sh` so it now flags version drift across all shipped plugin manifests plus the README badge.
+
 ## [1.2.0] - 2026-04-18
 
 `deep-discovery` convergence rule - closes runaway-loop and stop-early failure modes with a per-finding classification gate.

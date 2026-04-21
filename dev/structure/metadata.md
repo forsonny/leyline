@@ -13,7 +13,7 @@ Files at the repo root that describe the package rather than its behavior.
 }
 ```
 
-Minimal manifest. The `main` entry points at an OpenCode plugin shim. The `type: module` is ESM. The `name` is what marketplace installers register; the `version` is bumped by `scripts/bump-version.sh`.
+Minimal manifest. The `main` entry points at an OpenCode plugin shim. The `type: module` is ESM. The `name` is what marketplace installers register; the `version` is kept in sync with the other shipped manifests by `scripts/bump-version.sh`.
 
 ## `CHANGELOG.md`
 
@@ -38,8 +38,8 @@ Entry for humans. Covers what the plugin does, install steps per harness, the ba
 ## Release lifecycle
 
 1. Finish work via the usual pipeline (brainstorm → ... → finish)
-2. `scripts/bump-version.sh` bumps `package.json` version
-3. Update `CHANGELOG.md` (final step in any work, per CLAUDE.md global rules)
+2. `scripts/bump-version.sh` bumps the shipped manifest versions and appends a `CHANGELOG.md` stub
+3. Finalize `CHANGELOG.md` (final step in any work, per CLAUDE.md global rules)
 4. If significant, extend `RELEASE-NOTES.md`
 5. Tag and publish to the marketplace
 

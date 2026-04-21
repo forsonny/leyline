@@ -4,7 +4,7 @@
 
 ## Current contents
 
-- `bump-version.sh` — version bump helper used when cutting a release. Edits `package.json` version, updates `CHANGELOG.md` / `RELEASE-NOTES.md`, tags appropriately.
+- `bump-version.sh` — version bump helper used when cutting a release. Syncs the version across the shipped manifests, appends a `CHANGELOG.md` stub entry, updates the README badge, and prints a reminder for `RELEASE-NOTES.md` on significant releases.
 
 ## Role
 

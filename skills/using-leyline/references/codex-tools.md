@@ -22,7 +22,7 @@ If a skill names a tool that has no Codex equivalent, the skill still applies. E
 
 ## Verification
 
-Codex's tool naming evolves. This file is a hand-maintained snapshot. If a tool name here disagrees with what Codex exposes, trust the harness and open a PR to fix this file.
+Codex's tool naming evolves. This file is a hand-maintained snapshot. The marketplace install flow in `docs/README.codex.md` was revalidated against `codex-cli 0.122.0` on 2026-04-20 / 2026-04-21 UTC, but the table below has not been exhaustively revalidated against every current Codex surface. If a tool name here disagrees with what Codex exposes, trust the harness and open a PR to fix this file.
 
 ## Related
 

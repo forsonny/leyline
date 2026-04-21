@@ -3,7 +3,7 @@
 **An opinionated developer-session workflow plugin for Claude Code, Cursor, Codex, OpenCode, GitHub Copilot CLI, and Gemini CLI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-green.svg)](./CHANGELOG.md)
+[![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-green.svg)](./CHANGELOG.md)
 [![Harnesses: 6](https://img.shields.io/badge/Harnesses-6-informational)](./dev/reference/harness-matrix.md)
 
 Leyline encodes one coherent developer session from first message to merged branch as a deterministic pipeline of skills that hand off to each other in a fixed order. Every stage has an entry gate, a verifiable output, and an explicit successor. No stage silently skips. No completion claim ships without evidence. The iron laws are enforced at every handoff.
@@ -96,13 +96,13 @@ copilot plugin install leyline
 gemini extensions install https://github.com/forsonny/leyline
 ```
 
-### Codex (manual fetch)
+### Codex
 
 ```
-git clone https://github.com/forsonny/leyline.git ~/.codex/plugins/leyline
+codex plugin marketplace add forsonny/leyline
 ```
 
-Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the config wiring.
+Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-specific install and verification notes.
 
 ### OpenCode (manual fetch)
 
