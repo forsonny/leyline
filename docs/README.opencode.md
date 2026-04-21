@@ -2,7 +2,7 @@
 
 Leyline installs on OpenCode as a real plugin module, not as a metadata shim and not via manual hook wiring.
 
-OpenCode discovers local plugin files from either `.opencode/plugins/` in the current project or `~/.config/opencode/plugins/` globally. Leyline's recommended install uses the global plugin directory and a symlink back to your repo checkout.
+OpenCode discovers local plugin files from either `.opencode/plugins/` in the current project or `~/.config/opencode/plugins/` globally. Leyline's recommended install uses the global plugin directory and a symlink back to your own repo checkout.
 
 The plugin does three things on startup:
 
@@ -14,19 +14,23 @@ The plugin does three things on startup:
 
 1. Clone Leyline anywhere convenient:
 
-       git clone https://github.com/forsonny/leyline.git ~/src/leyline
+       LEYLINE_REPO="$HOME/path/to/leyline"   # replace with your actual checkout path
+       git clone https://github.com/forsonny/leyline.git "$LEYLINE_REPO"
 
 2. Symlink the plugin entry into OpenCode's global plugin directory.
 
    POSIX:
 
         mkdir -p ~/.config/opencode/plugins
-        ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
+        ln -sf "$LEYLINE_REPO/.opencode/plugins/leyline.js" ~/.config/opencode/plugins/leyline.js
 
    PowerShell:
 
-       New-Item -ItemType Directory -Force "$HOME/.config/opencode/plugins" | Out-Null
-       New-Item -ItemType SymbolicLink -Force -Path "$HOME/.config/opencode/plugins/leyline.js" -Target "$HOME/src/leyline/.opencode/plugins/leyline.js" | Out-Null
+        $LeylineRepo = "$HOME\path\to\leyline"  # replace with your actual checkout path
+        git clone https://github.com/forsonny/leyline.git $LeylineRepo
+        New-Item -ItemType Directory -Force "$HOME/.config/opencode/plugins" | Out-Null
+        Remove-Item "$HOME/.config/opencode/plugins/leyline.js" -Force -ErrorAction SilentlyContinue
+        New-Item -ItemType SymbolicLink -Force -Path "$HOME/.config/opencode/plugins/leyline.js" -Target "$LeylineRepo/.opencode/plugins/leyline.js" | Out-Null
 
 3. Restart OpenCode.
 

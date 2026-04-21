@@ -2,6 +2,16 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.4] - 2026-04-21
+
+OpenCode install examples no longer assume a checkout path that only exists on the maintainer's machine.
+
+### Patch - OpenCode path placeholders
+
+- Updated `README.md`, `docs/README.opencode.md`, and `.opencode/INSTALL.md` so the OpenCode install examples use user-supplied checkout-path variables instead of hard-coded `~/src/leyline` assumptions.
+- Added a safer PowerShell example that tells users to replace the checkout path, removes any existing plugin link first, and points the symlink target at the user's actual Leyline clone.
+- Kept the install guidance generic for downstream users on other machines while preserving the recommended symlink-based OpenCode setup.
+
 ## [1.2.3] - 2026-04-21
 
 OpenCode install docs clarified so the shipped plugin behavior matches the documented local-install flow.
