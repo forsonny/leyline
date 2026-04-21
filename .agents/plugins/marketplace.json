@@ -1,0 +1,20 @@
+{
+  "name": "leyline-marketplace",
+  "interface": {
+    "displayName": "Leyline Plugins"
+  },
+  "plugins": [
+    {
+      "name": "leyline",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

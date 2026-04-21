@@ -23,6 +23,7 @@ GEMINI_EXT="$ROOT/gemini-extension.json"
 OPENCODE_SHIM="$ROOT/.opencode/plugins/leyline.js"
 ROOT_PLUGIN="$ROOT/plugin.json"
 CLAUDE_PLUGIN="$ROOT/.claude-plugin/plugin.json"
+CODEX_PLUGIN="$ROOT/.codex-plugin/plugin.json"
 README="$ROOT/README.md"
 
 current=$(grep -E '"version"' "$PKG" | head -n 1 | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/' | tr -d '\r')
@@ -70,6 +71,13 @@ if [[ -f "$CLAUDE_PLUGIN" ]]; then
     tmp="$CLAUDE_PLUGIN.tmp"
     sed -E "s/(\"version\"[[:space:]]*:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$CLAUDE_PLUGIN" > "$tmp"
     mv "$tmp" "$CLAUDE_PLUGIN"
+fi
+
+# Sync .codex-plugin/plugin.json version
+if [[ -f "$CODEX_PLUGIN" ]]; then
+    tmp="$CODEX_PLUGIN.tmp"
+    sed -E "s/(\"version\"[[:space:]]*:[[:space:]]*)\"[^\"]+\"/\1\"${new}\"/" "$CODEX_PLUGIN" > "$tmp"
+    mv "$tmp" "$CODEX_PLUGIN"
 fi
 
 # Sync README badge version

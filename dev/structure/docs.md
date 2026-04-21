@@ -17,6 +17,11 @@
 
 Claude Code and Cursor install from plugin marketplaces and don't need standalone install docs — the root `README.md` covers them. Codex and OpenCode still need harness-specific notes beyond the root README, so they keep dedicated docs under `docs/`.
 
+For Codex specifically, the harness doc also explains the repo marketplace and plugin manifest layout:
+
+- `.agents/plugins/marketplace.json` — repo marketplace file Codex reads for discovery
+- `.codex-plugin/plugin.json` — plugin manifest Codex reads after installation
+
 ## Spec archive convention
 
 The `brainstorming` skill saves its design doc to `docs/leyline/specs/YYYY-MM-DD-<topic>-design.md` and commits it. The timestamp prefix keeps the archive chronologically sortable. User preferences in `CLAUDE.md` can override the location.

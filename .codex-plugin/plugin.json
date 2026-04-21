@@ -1,0 +1,39 @@
+{
+  "name": "leyline",
+  "version": "1.2.1",
+  "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
+  "author": {
+    "name": "Leyline contributors",
+    "url": "https://github.com/forsonny/leyline"
+  },
+  "homepage": "https://github.com/forsonny/leyline",
+  "repository": "https://github.com/forsonny/leyline.git",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "skills",
+    "planning",
+    "review",
+    "debugging"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Leyline",
+    "shortDescription": "Deterministic development workflow skills for Codex.",
+    "longDescription": "Leyline packages a behavior-shaping skill library for discovery, planning, debugging, execution, review, and verification in Codex.",
+    "developerName": "Leyline contributors",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Shell",
+      "Skills"
+    ],
+    "websiteURL": "https://github.com/forsonny/leyline",
+    "defaultPrompt": [
+      "Use Leyline to plan a new feature from discovery through execution.",
+      "Use Leyline to debug a failure with systematic root-cause investigation."
+    ],
+    "brandColor": "#1E6EEB"
+  }
+}

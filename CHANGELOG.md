@@ -9,6 +9,7 @@ Codex install docs corrected to the current marketplace flow, plus release metad
 ### Patch - Codex install path
 
 - Replaced the stale Codex `[[plugins]]` / `[[hooks.session_start]]` guidance with the verified `codex plugin marketplace add` flow in `docs/README.codex.md` and `.codex/INSTALL.md`.
+- Added `.agents/plugins/marketplace.json` and `.codex-plugin/plugin.json` so current Codex can actually discover Leyline from a repo marketplace instead of only registering the repo source.
 - Updated the root `README.md`, `dev/reference/harness-matrix.md`, and `dev/structure/docs.md` so Codex is no longer described as a manual-fetch plus hand-wired TOML install.
 - Clarified in `skills/using-leyline/references/codex-tools.md` that the Codex install flow was revalidated against `codex-cli 0.122.0`, while the tool-name table remains a maintained reference.
 
@@ -16,8 +17,8 @@ Codex install docs corrected to the current marketplace flow, plus release metad
 
 - Synced version `1.2.1` across `package.json`, `gemini-extension.json`, `plugin.json`, `.claude-plugin/plugin.json`, and `.opencode/plugins/leyline.js`.
 - Updated the README version badge to `1.2.1`.
-- Hardened `scripts/bump-version.sh` so future releases also sync `plugin.json`, `.claude-plugin/plugin.json`, and the README badge.
-- Hardened `scripts/check-stage-0.sh` so it now flags version drift across all shipped plugin manifests plus the README badge.
+- Hardened `scripts/bump-version.sh` so future releases also sync `.codex-plugin/plugin.json` in addition to the existing plugin manifests and the README badge.
+- Hardened `scripts/check-stage-0.sh` so it now requires the Codex marketplace files and flags version drift across all shipped plugin manifests plus the README badge.
 
 ## [1.2.0] - 2026-04-18
 

@@ -102,7 +102,7 @@ gemini extensions install https://github.com/forsonny/leyline
 codex plugin marketplace add forsonny/leyline
 ```
 
-Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-specific install and verification notes.
+Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-specific marketplace, install, and verification notes. Codex's official Plugin Directory is curated; Leyline appears through the repo marketplace shipped in [marketplace.json](./.agents/plugins/marketplace.json) and the Codex plugin manifest in [plugin.json](./.codex-plugin/plugin.json), not as an OpenAI-curated plugin.
 
 ### OpenCode (manual fetch)
 
@@ -118,7 +118,7 @@ Start a new session in your harness and ask for something that should trigger a 
 
 > "help me plan a dashboard filters feature"
 
-The agent should announce it is using Leyline and invoke `brainstorming`. If the session-start hook fired correctly, the agent's first response cites `using-leyline`. If not, see [Windows launcher notes](./docs/windows/launcher-notes.md) or the per-harness install doc.
+The agent should announce it is using Leyline and invoke `brainstorming`. In Codex specifically, prefer an explicit `@leyline` or bundled-skill invocation until session-start injection is confirmed. If the session-start hook fired correctly, the agent's first response cites `using-leyline`. If not, see [Windows launcher notes](./docs/windows/launcher-notes.md) or the per-harness install doc.
 
 ---
 
