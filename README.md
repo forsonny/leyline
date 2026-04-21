@@ -118,7 +118,7 @@ Start a new session in your harness and ask for something that should trigger a 
 
 > "help me plan a dashboard filters feature"
 
-The agent should announce it is using Leyline and invoke `brainstorming`. In Codex specifically, prefer an explicit `@leyline` or bundled-skill invocation until session-start injection is confirmed. If the session-start hook fired correctly, the agent's first response cites `using-leyline`. If not, see [Windows launcher notes](./docs/windows/launcher-notes.md) or the per-harness install doc.
+The agent should announce it is using Leyline and invoke `brainstorming`. In Codex, explicit `@leyline` or bundled-skill invocation works immediately after plugin install. Automatic session-start injection is now wired through repo-scoped or home-scoped `.codex/hooks.json`, not the plugin manifest itself, and current official Codex hooks docs disable hooks on Windows as of 2026-04-21. See [`docs/README.codex.md`](./docs/README.codex.md) for the exact setup and platform split.
 
 ---
 
@@ -147,9 +147,10 @@ Each iron law has a home skill that enforces it procedurally (`test-driven-devel
 |-----------|----------|-------|
 | `skills/` | Behavior-shaping skill library (flat namespace) | 21 skills |
 | `agents/` | `code-reviewer.md` and `design-reviewer.md` subagent definitions | 2 agents |
-| `hooks/` | Session-start wiring for Claude Code and Cursor (POSIX + Windows launchers) | 4 files |
+| `.codex/` | Codex install guide plus repo-scoped config (`config.toml`, `hooks.json`, custom reviewer agents) | 5 files |
+| `hooks/` | Launcher scripts and non-Codex hook registration for Claude Code and Cursor | 4 files |
 | `scripts/` | Release and maintenance helpers (bump-version, stage-0 self-test, manifest-sync lint, test-runner) | 4 scripts |
-| `commands/` | Slash-command redirectors to skills | 3 commands |
+| `commands/` | Slash-command redirectors for harnesses that support plugin-defined commands; not used by Codex | 3 commands |
 | `docs/` | Install guides, spec archive, plan archive, design archive | Per-harness guides |
 | `tests/` | Pressure-test scenarios verifying skill compliance | 4 scenarios |
 

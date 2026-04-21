@@ -35,7 +35,7 @@ check_path () {
 # Required directories
 for d in skills agents hooks scripts commands docs tests \
          docs/leyline/specs docs/leyline/design docs/leyline/plans \
-         docs/windows .github .codex .opencode/plugins .agents \
+         docs/windows .github .codex .codex/agents .opencode/plugins .agents \
          .agents/plugins .codex-plugin; do
     check_path "$d" dir
 done
@@ -55,6 +55,12 @@ done
 
 # Required hook files
 for f in hooks/hooks.json hooks/hooks-cursor.json hooks/run-hook.cmd hooks/session-start; do
+    check_path "$f" file
+done
+
+# Required Codex repo-scoped config
+for f in .codex/INSTALL.md .codex/config.toml .codex/hooks.json \
+         .codex/agents/code-reviewer.toml .codex/agents/design-reviewer.toml; do
     check_path "$f" file
 done
 

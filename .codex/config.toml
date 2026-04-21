@@ -1,0 +1,12 @@
+# Repo-scoped Codex defaults for working on Leyline itself.
+#
+# Current Codex hooks are experimental and require this feature flag.
+# Official Codex docs currently note that hooks are disabled on Windows, so
+# explicit `@leyline` or skill invocation remains the Windows path.
+
+[features]
+codex_hooks = true
+
+[agents]
+max_threads = 6
+max_depth = 1

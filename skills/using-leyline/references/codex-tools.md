@@ -14,11 +14,16 @@ Skills are authored against Claude Code tool names. When operating in Codex, sub
 | `WebFetch` | `web_fetch` | URL fetch. |
 | `WebSearch` | `web_search` | Search engine query. |
 | `TodoWrite` | Codex's task-tracking tool, if enabled | Task tracking is opt-in in Codex; if absent, follow checklists inline. |
-| `Task` (subagent dispatch) | Codex's subagent tool, if enabled | Subagent support is variable; fall back to `executing-plans` if dispatch is unavailable. |
+| `Task` (subagent dispatch) | Codex's subagent tool | Current Codex releases enable subagent workflows by default. Named Leyline reviewer agents can live in `.codex/agents/*.toml`. |
 
 ## Tool-availability rule
 
 If a skill names a tool that has no Codex equivalent, the skill still applies. Execute the closest available action and document the substitution in your reply so the human partner can see what was adapted.
+
+## Codex-specific runtime notes
+
+- Hooks are separate from plugin manifests. Current Codex docs load them from `~/.codex/hooks.json` or `<repo>/.codex/hooks.json`, behind `[features].codex_hooks`.
+- Current Codex hooks docs say hooks are disabled on Windows. On Windows, use explicit `@leyline` or direct skill invocation instead of expecting automatic session-start injection.
 
 ## Verification
 
