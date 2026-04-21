@@ -2,7 +2,7 @@
 
 Leyline installs on OpenCode as a real plugin module, not as a metadata shim and not via manual hook wiring.
 
-OpenCode discovers local plugin files from either `.opencode/plugins/` in the current project or `~/.config/opencode/plugins/` globally. Leyline's recommended install uses the global plugin directory and a symlink back to your own repo checkout.
+OpenCode supports both npm/git-installed plugins through the `plugin` array and local plugin files from `.opencode/plugins/` or `~/.config/opencode/plugins/`. Leyline's recommended install uses the native `plugin` array, just like other OpenCode plugins.
 
 The plugin does three things on startup:
 
@@ -10,7 +10,31 @@ The plugin does three things on startup:
 2. Injects `AGENTS.md` into the system prompt
 3. Injects `skills/using-leyline/SKILL.md` into the system prompt so the first-response rule is active from the first turn
 
-## Install from a local checkout
+## Recommended install
+
+Add Leyline to the `plugin` array in your `opencode.json` (global or project-level):
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["leyline@git+https://github.com/forsonny/leyline.git"]
+}
+```
+
+Restart OpenCode. The plugin auto-installs via Bun and then injects Leyline's manifest and entry skill automatically.
+
+To pin a specific version, add a tag or branch to the git URL:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["leyline@git+https://github.com/forsonny/leyline.git#v1.2.5"]
+}
+```
+
+## Local checkout install
+
+If you are developing Leyline itself or want to run from a working copy, symlink the local plugin entry instead.
 
 1. Clone Leyline anywhere convenient:
 
@@ -40,16 +64,14 @@ Do not copy only `leyline.js` into `~/.config/opencode/plugins/` by itself. The 
 
 If you prefer a project-only install, create the same symlink at `<your-project>/.opencode/plugins/leyline.js` instead. OpenCode discovers project-local plugins from that directory too.
 
-## Install from npm
+## Migrating from the old symlink-first install
 
-If Leyline is published to npm, OpenCode can install it directly from `opencode.json` because the package now exports a valid plugin module:
+If you previously installed Leyline with a cloned repo and symlink, you can switch to the native `plugin` array install:
 
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "plugin": ["leyline"]
-}
-```
+1. Remove the old symlink from `~/.config/opencode/plugins/leyline.js` if you created one.
+2. Remove any repo-specific Leyline plugin symlink under `.opencode/plugins/leyline.js` if you created one in a project.
+3. Add `"leyline@git+https://github.com/forsonny/leyline.git"` to the `plugin` array in `opencode.json`.
+4. Restart OpenCode.
 
 ## Verify
 

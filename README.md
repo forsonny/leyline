@@ -3,7 +3,7 @@
 **An opinionated developer-session workflow plugin for Claude Code, Cursor, Codex, OpenCode, GitHub Copilot CLI, and Gemini CLI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Version: 1.2.4](https://img.shields.io/badge/Version-1.2.4-green.svg)](./CHANGELOG.md)
+[![Version: 1.2.5](https://img.shields.io/badge/Version-1.2.5-green.svg)](./CHANGELOG.md)
 [![Harnesses: 6](https://img.shields.io/badge/Harnesses-6-informational)](./dev/reference/harness-matrix.md)
 
 Leyline encodes one coherent developer session from first message to merged branch as a deterministic pipeline of skills that hand off to each other in a fixed order. Every stage has an entry gate, a verifiable output, and an explicit successor. No stage silently skips. No completion claim ships without evidence. The iron laws are enforced at every handoff.
@@ -106,10 +106,21 @@ Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-speci
 
 ### OpenCode
 
-OpenCode auto-loads local plugin files from `.opencode/plugins/` in a project or `~/.config/opencode/plugins/` globally. Leyline's recommended install is to clone the repo wherever you want, then symlink its real plugin entry into the global plugin directory using your own checkout path:
+Leyline works with OpenCode's native `plugin` array, like other OpenCode plugins. Recommended install: add Leyline to `opencode.json` and let OpenCode install it from Git on startup:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["leyline@git+https://github.com/forsonny/leyline.git"]
+}
+```
+
+Restart OpenCode after updating the config.
+
+For local development from a checkout, OpenCode also auto-loads local plugin files from `.opencode/plugins/` in a project or `~/.config/opencode/plugins/` globally. In that case, symlink Leyline's real plugin entry into the plugin directory:
 
 ```
-$LEYLINE_REPO="$HOME/path/to/leyline"   # replace with your actual checkout path
+LEYLINE_REPO="$HOME/path/to/leyline"   # replace with your actual checkout path
 git clone https://github.com/forsonny/leyline.git "$LEYLINE_REPO"
 mkdir -p ~/.config/opencode/plugins
 ln -sf "$LEYLINE_REPO/.opencode/plugins/leyline.js" ~/.config/opencode/plugins/leyline.js

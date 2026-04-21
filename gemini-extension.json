@@ -1,6 +1,6 @@
 {
   "name": "leyline",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Opinionated developer-session workflow plugin. Encodes a deterministic pipeline from first message to merged branch as skills that hand off to each other in a fixed order.",
   "author": "Leyline contributors",
   "license": "MIT",

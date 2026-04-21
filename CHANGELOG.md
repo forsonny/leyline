@@ -2,6 +2,16 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.5] - 2026-04-21
+
+OpenCode install docs now match the native git-plugin flow used by comparable OpenCode plugins.
+
+### Patch - OpenCode plugin-array install
+
+- Reworked `README.md`, `docs/README.opencode.md`, `.opencode/INSTALL.md`, and `dev/reference/harness-matrix.md` so OpenCode's recommended Leyline install uses the native `plugin` array with `leyline@git+https://github.com/forsonny/leyline.git`.
+- Kept the symlink-based local-checkout flow, but repositioned it as the development/working-copy fallback instead of the primary install path.
+- Added migration guidance from the older symlink-first setup and a pinned-version example for git installs.
+
 ## [1.2.4] - 2026-04-21
 
 OpenCode install examples no longer assume a checkout path that only exists on the maintainer's machine.
