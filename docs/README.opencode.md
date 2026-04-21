@@ -2,6 +2,8 @@
 
 Leyline installs on OpenCode as a real plugin module, not as a metadata shim and not via manual hook wiring.
 
+OpenCode discovers local plugin files from either `.opencode/plugins/` in the current project or `~/.config/opencode/plugins/` globally. Leyline's recommended install uses the global plugin directory and a symlink back to your repo checkout.
+
 The plugin does three things on startup:
 
 1. Syncs Leyline's `skills/`, `commands/`, and OpenCode-compatible `agents/` into `~/.config/opencode/`
@@ -14,12 +16,12 @@ The plugin does three things on startup:
 
        git clone https://github.com/forsonny/leyline.git ~/src/leyline
 
-2. Symlink the plugin entry into OpenCode's plugin directory.
+2. Symlink the plugin entry into OpenCode's global plugin directory.
 
    POSIX:
 
-       mkdir -p ~/.config/opencode/plugins
-       ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
+        mkdir -p ~/.config/opencode/plugins
+        ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
 
    PowerShell:
 
@@ -29,6 +31,10 @@ The plugin does three things on startup:
 3. Restart OpenCode.
 
 Because the plugin resolves its real path before loading assets, symlinking the single `leyline.js` entry file is enough; you do not need to copy the whole repository into the plugin directory.
+
+Do not copy only `leyline.js` into `~/.config/opencode/plugins/` by itself. The plugin expects to resolve back to the full Leyline checkout so it can read `AGENTS.md`, `skills/`, `commands/`, and `agents/` from the repo.
+
+If you prefer a project-only install, create the same symlink at `<your-project>/.opencode/plugins/leyline.js` instead. OpenCode discovers project-local plugins from that directory too.
 
 ## Install from npm
 

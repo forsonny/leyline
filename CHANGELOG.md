@@ -2,6 +2,16 @@
 
 All notable changes to the Leyline plugin are documented here. Newest first.
 
+## [1.2.3] - 2026-04-21
+
+OpenCode install docs clarified so the shipped plugin behavior matches the documented local-install flow.
+
+### Patch - OpenCode install docs clarification
+
+- Tightened `README.md`'s OpenCode section to state the actual OpenCode plugin discovery paths, keep the recommended global-symlink install, and warn against copying only `leyline.js` without the full repo checkout.
+- Updated `docs/README.opencode.md` to distinguish the recommended global install from the optional project-local plugin path and to make the symlink requirement explicit.
+- Corrected the root README's verification prompt to `"let's build a dashboard filters feature"` so the expected `brainstorming` activation matches Leyline's routing table deterministically.
+
 ## [1.2.2] - 2026-04-21
 
 OpenCode install path corrected to the real plugin API and backed by automated verification.

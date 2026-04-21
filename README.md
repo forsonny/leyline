@@ -3,7 +3,7 @@
 **An opinionated developer-session workflow plugin for Claude Code, Cursor, Codex, OpenCode, GitHub Copilot CLI, and Gemini CLI.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-green.svg)](./CHANGELOG.md)
+[![Version: 1.2.3](https://img.shields.io/badge/Version-1.2.3-green.svg)](./CHANGELOG.md)
 [![Harnesses: 6](https://img.shields.io/badge/Harnesses-6-informational)](./dev/reference/harness-matrix.md)
 
 Leyline encodes one coherent developer session from first message to merged branch as a deterministic pipeline of skills that hand off to each other in a fixed order. Every stage has an entry gate, a verifiable output, and an explicit successor. No stage silently skips. No completion claim ships without evidence. The iron laws are enforced at every handoff.
@@ -106,7 +106,7 @@ Then follow [`docs/README.codex.md`](./docs/README.codex.md) for the Codex-speci
 
 ### OpenCode
 
-Clone Leyline anywhere, then symlink the real plugin entry into OpenCode's plugin directory:
+OpenCode auto-loads local plugin files from `.opencode/plugins/` in a project or `~/.config/opencode/plugins/` globally. Leyline's recommended install is to keep the repo anywhere you want and symlink its real plugin entry into the global plugin directory:
 
 ```
 git clone https://github.com/forsonny/leyline.git ~/src/leyline
@@ -114,13 +114,15 @@ mkdir -p ~/.config/opencode/plugins
 ln -sf ~/src/leyline/.opencode/plugins/leyline.js ~/.config/opencode/plugins/leyline.js
 ```
 
-Then follow [`docs/README.opencode.md`](./docs/README.opencode.md) for the full install, Windows variant, and verification notes. No manual hook wiring is needed; the plugin injects Leyline's instructions itself.
+Do not copy only `leyline.js` by itself; the plugin resolves paths back to the repo checkout so it can sync Leyline's assets.
+
+Then follow [`docs/README.opencode.md`](./docs/README.opencode.md) for the full install, project-local variant, Windows variant, and verification notes. No manual hook wiring is needed; the plugin injects Leyline's instructions itself.
 
 ### After install
 
-Start a new session in your harness and ask for something that should trigger a skill:
+Start a new session in your harness and ask for something that should deterministically trigger a skill:
 
-> "help me plan a dashboard filters feature"
+> "let's build a dashboard filters feature"
 
 The agent should announce it is using Leyline and invoke `brainstorming`. In Codex, explicit `@leyline` or bundled-skill invocation works immediately after plugin install. Automatic session-start injection is now wired through repo-scoped or home-scoped `.codex/hooks.json`, not the plugin manifest itself, and current official Codex hooks docs disable hooks on Windows as of 2026-04-21. See [`docs/README.codex.md`](./docs/README.codex.md) for the exact setup and platform split.
 
