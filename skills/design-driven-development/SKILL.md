@@ -1,6 +1,6 @@
 ---
 name: design-driven-development
-description: Use when implementing any task whose "Files:" block touches a user-facing surface, before writing the code for that surface. Enforces the DRAW-BUILD-RECONCILE cycle: the UX artifact is the source of truth, the implementation instantiates it, and any divergence is resolved explicitly. An overlay during stage 5 alongside test-driven-development.
+description: 'Use when implementing any task whose "Files:" block touches a user-facing surface, before writing the code for that surface. Enforces the DRAW-BUILD-RECONCILE cycle: the UX artifact is the source of truth, the implementation instantiates it, and any divergence is resolved explicitly. An overlay during stage 5 alongside test-driven-development.'
 ---
 
 ## Announce on entry

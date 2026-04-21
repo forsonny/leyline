@@ -97,6 +97,13 @@ while IFS= read -r -d '' skill; do
         echo "FRONTMATTER: $skill missing description:" >&2
         fail=1
     fi
+
+    desc_line=$(printf '%s\n' "$fm" | grep '^description:' | head -n 1 || true)
+    desc_value="${desc_line#description: }"
+    if [[ -n "$desc_line" && "$desc_value" != \"*\" && "$desc_value" != \'*\' && "$desc_line" =~ :[[:space:]].*:[[:space:]] ]]; then
+        echo "FRONTMATTER: $skill description contains an unquoted ': ' and is not valid portable YAML" >&2
+        fail=1
+    fi
 done < <(find "$ROOT/skills" -type f -name SKILL.md -print0 2>/dev/null)
 
 # Version sync
